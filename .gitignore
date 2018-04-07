@@ -1,0 +1,3 @@
+# Remove IntelliJ related files
+.idea/**
+*.iml
