@@ -1,18 +1,17 @@
 package com.callumgeorge.onesidedbattleships.ships;
 
+import java.util.Arrays;
+
 /**
  * Ship that can be added to a board.
  */
 public class Ship {
 
     private ShipType shipType;
-    private int shipHealth;
-
     private ShipNode[] shipNodes;
 
     public Ship(ShipType shipType){
         this.shipType = shipType;
-        this.shipHealth = shipType.getLength();
         this.shipNodes = generateShipNodes(shipType.getLength());
     }
 
@@ -23,24 +22,9 @@ public class Ship {
      */
      private ShipNode[] generateShipNodes(int length){
         ShipNode[] shipNodes = new ShipNode[length];
-        for(int i = 0; i < shipType.getLength(); i++){
-            shipNodes[i] = new ShipNode();
-        }
-
+        Arrays.setAll(shipNodes, i -> new ShipNode());
         return shipNodes;
      }
-
-    /**
-     * Remove 1 health from the ship.
-     * @return Indicates whether the ship has been destroyed by this hit.
-     */
-    private boolean removeHealth(){
-        if(this.shipHealth != 0){
-            this.shipHealth--;
-        }
-
-        return isShipDestroyed();
-    }
 
     /**
      * Get the length of the ship.
@@ -64,7 +48,8 @@ public class Ship {
      * @return is the ship destroyed.
      */
     public boolean isShipDestroyed(){
-        return this.shipHealth == 0;
+        return Arrays.stream(shipNodes)
+                .allMatch(i -> i.isDestroyed);
     }
 
     /**
@@ -88,9 +73,11 @@ public class Ship {
          * @return True if the parent ship has been destroyed.
          */
         public boolean destroyNode(){
-            if (!isDestroyed)
-                return Ship.this.removeHealth();
-            else return isShipDestroyed();
+            if (!isDestroyed) {
+                this.isDestroyed = true;
+                return isShipDestroyed();
+
+            } else return isShipDestroyed();
         }
 
         /**
