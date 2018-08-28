@@ -1,5 +1,5 @@
 ## Requirements
-* Java 1.7+
+* Java 1.8+
 * Maven
 
 ## Build Instructions
@@ -12,5 +12,5 @@ This will generate a .jar within the /target direcctory.
 ## Execution Instructions
 From a terminal run the following command against the generated .jar:
 ```
-java -jar one-sided-battleships-1.0.jar
+java -jar one-sided-battleships-1.1.jar
 ```
