@@ -109,7 +109,7 @@ public class ConsoleInterface {
             System.out.print("Enter Cell to Target: ");
 
             // Get the user input and validate it, if it's invalid then inform the user.
-            targetCoordinates = reader.nextLine().toUpperCase();
+            targetCoordinates = reader.nextLine().toUpperCase().trim();
             coordinatesValid = CoordinateUtils.isValid(targetCoordinates);
 
             if(!coordinatesValid)
